@@ -1,12 +1,15 @@
+const ICON_VERSION = "10";
+
 export function Mark({
   className = "h-8 w-8",
+  inverted = false,
 }: {
   className?: string;
   inverted?: boolean;
 }) {
   return (
     <img
-      src="/icon.png"
+      src={inverted ? `/icon.png?v=${ICON_VERSION}` : `/quill-ink.png?v=${ICON_VERSION}`}
       alt=""
       width={64}
       height={64}
@@ -18,6 +21,7 @@ export function Mark({
 export function Wordmark({
   className = "text-ink",
   markClassName = "h-8 w-8",
+  inverted = false,
 }: {
   className?: string;
   markClassName?: string;
@@ -25,7 +29,7 @@ export function Wordmark({
 }) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <Mark className={markClassName} />
+      <Mark className={markClassName} inverted={inverted} />
       <span className="font-serif text-[1.4rem] leading-none tracking-tight">
         Scoliva
       </span>

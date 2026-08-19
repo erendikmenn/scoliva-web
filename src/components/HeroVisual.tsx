@@ -14,11 +14,11 @@ export function HeroVisual({
           <span />
         </div>
         <img
-          src="/icon.png"
+          src="/quill-ink.png?v=10"
           alt=""
           width={160}
           height={160}
-          className="absolute top-1/2 left-1/2 h-[42%] w-[42%] -translate-x-1/2 -translate-y-1/2 object-contain"
+          className="absolute top-1/2 left-1/2 h-[46%] w-[46%] -translate-x-1/2 -translate-y-1/2 object-contain"
         />
       </div>
 

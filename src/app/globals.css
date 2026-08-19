@@ -186,7 +186,7 @@ body {
 .inset {
   margin-top: 1.25rem;
   border-radius: 1.1rem;
-  background: var(--paper);
+  background: var(--cream);
   padding: 1rem 1.1rem;
 }
 

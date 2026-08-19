@@ -8,39 +8,35 @@ function MiniList({
   title,
   body,
   items,
-  ink = false,
 }: {
   title: string;
   body: string;
   items: readonly { label: string; note: string }[];
-  ink?: boolean;
 }) {
   if (items.length === 0) {
     return (
-      <div className={`inset ${ink ? "bg-cream/10" : ""}`}>
-        <p className={`text-[11px] font-semibold tracking-[0.14em] uppercase ${ink ? "text-gold" : "text-ink/40"}`}>
+      <div className="inset">
+        <p className="text-[11px] font-semibold tracking-[0.14em] text-ink/40 uppercase">
           {title}
         </p>
-        <p className={`mt-2 text-sm leading-relaxed ${ink ? "text-cream/70" : "text-ink/65"}`}>{body}</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink/65">{body}</p>
       </div>
     );
   }
 
   return (
-    <div className={`inset ${ink ? "bg-cream/10" : ""}`}>
-      <p className={`text-[11px] font-semibold tracking-[0.14em] uppercase ${ink ? "text-gold" : "text-ink/40"}`}>
+    <div className="inset">
+      <p className="text-[11px] font-semibold tracking-[0.14em] text-ink/40 uppercase">
         {title}
       </p>
       <ul className="mt-3 space-y-0">
         {items.map((item) => (
           <li
             key={item.label}
-            className={`flex items-center justify-between gap-3 py-2 text-sm ${
-              ink ? "border-b border-cream/10 text-cream last:border-0" : "border-b border-ink/8 last:border-0"
-            }`}
+            className="flex items-center justify-between gap-3 border-b border-ink/8 py-2 text-sm last:border-0"
           >
             <span>{item.label}</span>
-            <span className={`text-[11px] font-semibold tracking-[0.08em] uppercase ${ink ? "text-cream/45" : "text-ink/45"}`}>
+            <span className="text-[11px] font-semibold tracking-[0.08em] text-ink/45 uppercase">
               {item.note}
             </span>
           </li>
@@ -132,21 +128,20 @@ export function HomePage({ locale }: { locale: Locale }) {
               {t.how.title}
             </h2>
             <ol className="mt-10 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4">
-              {t.how.cards.map((card, i) => (
+              {t.how.cards.map((card) => (
                 <li key={card.title}>
-                  <article className={`panel ${i === 0 ? "panel-ink" : "panel-paper"}`}>
-                    <p className={`font-serif text-sm tracking-[0.16em] uppercase ${i === 0 ? "text-gold" : "text-olive-deep"}`}>
+                  <article className="panel panel-paper">
+                    <p className="font-serif text-sm tracking-[0.16em] text-olive-deep uppercase">
                       {card.n} / {t.how.cards.length}
                     </p>
                     <h3 className="mt-3 font-serif text-[1.7rem] leading-tight sm:text-[2rem]">{card.title}</h3>
-                    <p className={`mt-3 text-sm leading-relaxed text-pretty ${i === 0 ? "text-cream/68" : "text-ink/65"}`}>
+                    <p className="mt-3 text-sm leading-relaxed text-pretty text-ink/65">
                       {card.body}
                     </p>
                     <MiniList
                       title={card.asideTitle}
                       body={card.asideBody}
                       items={card.items}
-                      ink={i === 0}
                     />
                   </article>
                 </li>

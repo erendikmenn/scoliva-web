@@ -17,6 +17,10 @@
   Content-Type: image/png
   Cache-Control: public, max-age=0, must-revalidate
 
+/quill-ink.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=0, must-revalidate
+
 /wordmark.png
   Content-Type: image/png
   Cache-Control: public, max-age=0, must-revalidate
