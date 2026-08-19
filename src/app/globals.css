@@ -147,32 +147,85 @@ body {
   box-shadow: 0 18px 40px -20px rgb(10 20 16 / 0.28);
 }
 
-.journey-slot {
-  position: relative;
-  padding-bottom: 0.85rem;
+.journey-pin {
+  height: 340vh;
 }
 
-.journey-card {
+.journey-sticky {
   position: sticky;
-  top: calc(5.15rem + var(--stack-offset, 0px));
-  overflow: visible;
-  border-radius: 1.7rem;
+  top: 4.5rem;
+  height: calc(100svh - 5.1rem);
+  padding-bottom: 1rem;
+}
+
+.journey-deck {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 0.45rem;
+}
+
+.journey-pane {
+  --open: 0;
+  position: relative;
+  overflow: hidden;
+  flex: calc(0.14 + var(--open) * 2.35) 1 2.75rem;
+  min-width: 2.75rem;
+  border-radius: 1.35rem;
   background:
     radial-gradient(circle, rgb(243 238 227 / 0.09) 1px, transparent 1.2px) 0 0 / 18px 18px,
     var(--ink);
-  box-shadow: 0 28px 64px -36px rgb(10 20 16 / 0.55);
+  box-shadow: 0 22px 48px -32px rgb(10 20 16 / 0.5);
+}
+
+.journey-spine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 0.35rem 1.25rem;
+  color: var(--cream);
+  opacity: calc(1 - var(--open) * 1.35);
+  pointer-events: none;
+}
+
+.journey-pane[data-open="false"] .journey-spine {
+  pointer-events: auto;
+}
+
+.journey-spine-title {
+  flex: 1;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-fraunces), ui-serif, serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: rgb(243 238 227 / 0.78);
+}
+
+.journey-body {
+  height: 100%;
+  opacity: calc((var(--open) - 0.42) / 0.4);
+  pointer-events: none;
+}
+
+.journey-pane[data-open="true"] .journey-body {
+  pointer-events: auto;
 }
 
 .journey-grid {
   display: grid;
-  min-height: inherit;
+  height: 100%;
   align-items: center;
-  gap: 1.75rem;
-  padding: 1.4rem 1.3rem 1.5rem;
+  gap: 1.25rem;
+  padding: 1.15rem 1.05rem 1.2rem;
 }
 
 .journey-stage {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 }
@@ -187,46 +240,36 @@ body {
 }
 
 @media (min-width: 768px) {
-  .journey-slot {
-    padding-bottom: 55vh;
+  .journey-deck {
+    gap: 0.65rem;
   }
 
-  .journey-slot:last-child {
-    padding-bottom: 18vh;
+  .journey-pane {
+    flex-basis: 4.4rem;
+    min-width: 4.4rem;
+    border-radius: 1.75rem;
   }
 
-  .journey-card {
-    min-height: min(36rem, calc(100svh - 7.2rem));
-    border-radius: 2rem;
+  .journey-spine {
+    padding: 1.35rem 0.45rem 1.5rem;
+  }
+
+  .journey-spine-title {
+    font-size: 1.25rem;
   }
 
   .journey-grid {
     grid-template-columns: 1.05fr 0.95fr;
-    gap: 2.5rem;
-    padding: 2.1rem 2.2rem;
+    gap: 2rem;
+    padding: 1.8rem 1.9rem;
+  }
+
+  .journey-stage {
+    display: flex;
   }
 
   .journey-aside {
-    transform: rotate(2.4deg);
-  }
-}
-
-@supports (animation-timeline: view()) {
-  .journey-card {
-    animation: journey-open linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 32%;
-  }
-}
-
-@keyframes journey-open {
-  from {
-    transform: translateY(2.2rem) scale(0.975);
-    opacity: 0.76;
-  }
-  to {
-    transform: none;
-    opacity: 1;
+    transform: rotate(2.2deg);
   }
 }
 
@@ -445,8 +488,7 @@ body {
   .hero-aurora .wash,
   .menu-screen,
   .menu-screen-open,
-  .menu-link,
-  .journey-card {
+  .menu-link {
     animation: none !important;
     transition: none !important;
   }

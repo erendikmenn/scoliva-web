@@ -1,4 +1,7 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { copy } from "@/lib/copy";
 import type { Locale } from "@/lib/site";
 
@@ -103,9 +106,65 @@ function CardAside({ card, index }: { card: Card; index: number }) {
 
 export function JourneyCards({ locale }: { locale: Locale }) {
   const t = copy[locale];
+  const cards = t.how.cards;
+  const pinRef = useRef<HTMLDivElement>(null);
+  const panesRef = useRef<(HTMLElement | null)[]>([]);
+
+  useEffect(() => {
+    const pin = pinRef.current;
+    const panes = panesRef.current;
+    if (!pin || panes.length === 0) return;
+
+    let frame = 0;
+    const last = cards.length - 1;
+
+    const paint = () => {
+      const range = pin.offsetHeight - window.innerHeight;
+      const scrolled = -pin.getBoundingClientRect().top;
+      const progress = range <= 0 ? 0 : Math.min(1, Math.max(0, scrolled / range));
+      const cursor = progress * last;
+
+      panes.forEach((pane, index) => {
+        if (!pane) return;
+        const dist = Math.abs(cursor - index);
+        const open = dist >= 1 ? 0 : 1 - dist;
+        pane.style.setProperty("--open", open.toFixed(4));
+        const isOpen = open > 0.55;
+        pane.dataset.open = isOpen ? "true" : "false";
+        const body = pane.querySelector(".journey-body");
+        if (body) body.setAttribute("aria-hidden", isOpen ? "false" : "true");
+      });
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        paint();
+      });
+    };
+
+    paint();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [cards.length]);
+
+  const openAt = (index: number) => {
+    const pin = pinRef.current;
+    if (!pin) return;
+    const last = Math.max(cards.length - 1, 1);
+    const range = pin.offsetHeight - window.innerHeight;
+    const top = pin.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + (index / last) * range, behavior: "smooth" });
+  };
 
   return (
-    <section className="scroll-mt-20 bg-paper pt-10 pb-6 sm:pt-16" id="urun">
+    <section className="scroll-mt-20 bg-paper pt-10 sm:pt-16" id="urun">
       <div className="gutter mx-auto max-w-6xl">
         <p className="text-[11px] font-semibold tracking-[0.2em] text-olive-deep uppercase">
           {t.how.eyebrow}
@@ -115,47 +174,62 @@ export function JourneyCards({ locale }: { locale: Locale }) {
         </h2>
       </div>
 
-      <div className="journey-stack mt-8 sm:mt-12">
-        {t.how.cards.map((card, index) => (
-          <article
-            key={card.title}
-            className="journey-slot"
-            style={{
-              zIndex: index + 1,
-              ["--stack-offset" as string]: `${index * 0.7}rem`,
-            }}
-          >
-            <div className="gutter mx-auto w-full max-w-6xl">
-              <div className="journey-card">
-                <div className="journey-grid">
-                  <div className="flex min-w-0 flex-col">
-                    <span className="grid h-11 w-11 place-items-center rounded-full border border-cream/14 text-cream">
-                      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
-                        {ICONS[index] ?? ICONS[0]}
-                      </svg>
-                    </span>
-                    <h3 className="mt-6 font-serif text-[clamp(1.7rem,5vw,2.7rem)] leading-[1.1] tracking-tight text-cream">
-                      {card.n}. {card.title}
-                    </h3>
-                    <p className="mt-4 max-w-md text-sm leading-relaxed text-pretty text-cream/68 sm:text-base">
-                      {card.body}
-                    </p>
-                    <a
-                      href="#ne-yapiyoruz"
-                      className="mt-8 inline-flex h-11 w-fit items-center gap-2 rounded-full bg-cream px-5 text-sm font-semibold text-ink transition hover:bg-white"
-                    >
-                      {t.how.cta}
-                      <ArrowRight className="h-4 w-4" />
-                    </a>
+      <div className="journey-pin" ref={pinRef}>
+        <div className="journey-sticky">
+          <div className="gutter mx-auto flex h-full max-w-6xl">
+            <div className="journey-deck">
+              {cards.map((card, index) => (
+                <article
+                  key={card.title}
+                  ref={(node) => {
+                    panesRef.current[index] = node;
+                  }}
+                  className="journey-pane"
+                  style={{ ["--open" as string]: index === 0 ? "1" : "0" }}
+                  data-open={index === 0 ? "true" : "false"}
+                >
+                  <button
+                    type="button"
+                    className="journey-spine"
+                    onClick={() => openAt(index)}
+                    aria-label={`${card.n}. ${card.title}`}
+                  >
+                    <span className="font-serif text-2xl text-gold sm:text-3xl">{card.n}</span>
+                    <span className="journey-spine-title">{card.title}</span>
+                  </button>
+
+                  <div className="journey-body">
+                    <div className="journey-grid">
+                      <div className="flex min-w-0 flex-col">
+                        <span className="grid h-11 w-11 place-items-center rounded-full border border-cream/14 text-cream">
+                          <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
+                            {ICONS[index] ?? ICONS[0]}
+                          </svg>
+                        </span>
+                        <h3 className="mt-5 font-serif text-[clamp(1.55rem,4vw,2.55rem)] leading-[1.1] tracking-tight text-cream">
+                          {card.n}. {card.title}
+                        </h3>
+                        <p className="mt-3 max-w-md text-sm leading-relaxed text-pretty text-cream/68 sm:mt-4 sm:text-base">
+                          {card.body}
+                        </p>
+                        <a
+                          href="#ne-yapiyoruz"
+                          className="mt-6 inline-flex h-11 w-fit items-center gap-2 rounded-full bg-cream px-5 text-sm font-semibold text-ink transition hover:bg-white sm:mt-8"
+                        >
+                          {t.how.cta}
+                          <ArrowRight className="h-4 w-4" />
+                        </a>
+                      </div>
+                      <div className="journey-stage" aria-hidden>
+                        <CardAside card={card} index={index} />
+                      </div>
+                    </div>
                   </div>
-                  <div className="journey-stage" aria-hidden>
-                    <CardAside card={card} index={index} />
-                  </div>
-                </div>
-              </div>
+                </article>
+              ))}
             </div>
-          </article>
-        ))}
+          </div>
+        </div>
       </div>
     </section>
   );
