@@ -1,0 +1,26 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+/favicon.ico
+  Content-Type: image/x-icon
+  Cache-Control: public, max-age=0, must-revalidate
+
+/favicon-32.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=0, must-revalidate
+
+/icon.svg
+  Content-Type: image/svg+xml
+  Cache-Control: public, max-age=0, must-revalidate
+
+/apple-touch-icon.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=0, must-revalidate
+
+/apple-icon.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=0, must-revalidate
