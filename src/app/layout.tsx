@@ -30,12 +30,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico?v=6", type: "image/x-icon", sizes: "48x48" },
-      { url: "/favicon-32.png?v=6", type: "image/png", sizes: "32x32" },
-      { url: "/icon.svg?v=6", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=7", type: "image/x-icon", sizes: "48x48" },
+      { url: "/favicon-32.png?v=7", type: "image/png", sizes: "32x32" },
+      { url: "/icon.svg?v=7", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-touch-icon.png?v=6", sizes: "180x180", type: "image/png" }],
-    shortcut: "/favicon.ico?v=6",
+    apple: [{ url: "/apple-touch-icon.png?v=7", sizes: "180x180", type: "image/png" }],
+    shortcut: "/favicon.ico?v=7",
   },
   description:
     "Scoliva, öğrenciyi tanıyan adaptif öğrenme sistemi. Kişiye özel ders videoları, notlar, sorular, asistan ve çalışma planı. YKS ile başlar.",
