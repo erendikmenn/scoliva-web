@@ -71,7 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${sora.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <div className="flex min-h-full flex-1 flex-col overflow-x-clip">
+        <div className="flex min-h-full flex-1 flex-col">
           {children}
         </div>
       </body>

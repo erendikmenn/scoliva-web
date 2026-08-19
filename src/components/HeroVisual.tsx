@@ -1,22 +1,47 @@
-export function HeroVisual() {
+export function HeroVisual({
+  name,
+  message,
+}: {
+  name: string;
+  message: string;
+}) {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[34rem]">
-      <div className="absolute inset-[8%] rounded-full border border-cream/8" />
-      <div className="absolute inset-[18%] rounded-full border border-gold/20" />
-      <div className="absolute inset-[30%] rounded-full border border-cream/10" />
-      <div className="float-slow absolute inset-[38%] grid place-items-center rounded-full bg-ink-soft/80 shadow-[0_0_80px_rgba(212,174,90,0.12)]">
-        <img src="/icon.png" alt="" width={64} height={64} className="h-16 w-16" />
+    <div className="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-none">
+      <div className="hero-stage-card relative aspect-square overflow-hidden rounded-[1.6rem] bg-white sm:rounded-[2rem]">
+        <div aria-hidden className="hero-rings">
+          <span />
+          <span />
+          <span />
+        </div>
+        <img
+          src="/icon.png"
+          alt=""
+          width={160}
+          height={160}
+          className="absolute top-1/2 left-1/2 h-[42%] w-[42%] -translate-x-1/2 -translate-y-1/2 object-contain"
+        />
       </div>
-      <svg
-        viewBox="0 0 240 240"
-        className="orbit pointer-events-none absolute inset-0 h-full w-full"
-        aria-hidden
-      >
-        <circle cx="120" cy="18" r="3.2" fill="#d4ae5a" />
-        <circle cx="222" cy="120" r="2.4" fill="#f3eee3" opacity="0.55" />
-        <circle cx="120" cy="222" r="3.2" fill="#d4ae5a" />
-        <circle cx="18" cy="120" r="2.4" fill="#f3eee3" opacity="0.55" />
-      </svg>
+
+      <aside className="hero-bubble relative z-10 mx-4 -mt-10 rounded-[1.35rem] bg-white p-4 sm:absolute sm:top-[18%] sm:-left-8 sm:mt-0 sm:max-w-[17.5rem] sm:p-5 lg:-left-10">
+        <p className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.08em] text-ink/45 uppercase">
+          <span className="grid h-5 w-5 place-items-center rounded-full bg-ink">
+            <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" aria-hidden>
+              <path
+                d="M2.2 6.6 4.5 8.8 9.8 3.2"
+                fill="none"
+                stroke="#d4ae5a"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+          {name}
+        </p>
+        <p className="mt-2.5 text-sm leading-relaxed text-pretty text-ink/72">
+          {message}
+        </p>
+      </aside>
     </div>
   );
 }

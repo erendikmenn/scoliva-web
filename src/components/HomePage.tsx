@@ -1,9 +1,9 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { copy } from "@/lib/copy";
 import { site, type Locale } from "@/lib/site";
 import { Footer } from "./Footer";
-import { HeroBackdrop } from "./HeroBackdrop";
 import { HeroVisual } from "./HeroVisual";
+import { JourneyCards } from "./JourneyCards";
 import { Nav } from "./Nav";
 
 export function HomePage({ locale }: { locale: Locale }) {
@@ -14,41 +14,60 @@ export function HomePage({ locale }: { locale: Locale }) {
     <div className="flex min-h-full flex-col bg-paper" lang={t.htmlLang}>
       <Nav locale={locale} />
       <main className="flex-1">
-        <section className="hero-stage relative overflow-hidden text-cream">
-          <HeroBackdrop />
-          <div className="gutter relative mx-auto grid w-full max-w-6xl items-center gap-8 py-10 sm:gap-10 sm:py-16 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-20">
+        <section className="hero-light relative overflow-x-clip">
+          <div className="gutter relative mx-auto grid w-full max-w-6xl items-center gap-10 py-10 sm:gap-12 sm:py-16 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[1.12fr_0.88fr] lg:gap-10 lg:py-16">
             <div className="min-w-0">
-              <h1 className="rise max-w-3xl font-serif text-[clamp(2.1rem,9vw,4.6rem)] leading-[1.08] tracking-tight text-balance">
-                {t.hero.titleLead}{" "}
-                <em className="italic text-gold">{t.hero.titleAccent}</em>
+              <p className="rise inline-flex items-center gap-2 rounded-full bg-ink/5 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-ink/50 uppercase">
+                <span className="h-1.5 w-1.5 rounded-full bg-olive" />
+                {t.hero.badge}
+              </p>
+              <h1 className="rise rise-1 mt-5 max-w-3xl font-serif text-[clamp(2.15rem,8.4vw,4.55rem)] leading-[1.08] tracking-tight text-balance">
+                {t.hero.titleBefore}
+                <em className="mark-wash">{t.hero.titleMark}</em>
+                {t.hero.titleAfter}
               </h1>
-              <p className="rise rise-1 mt-5 max-w-lg text-base leading-relaxed text-pretty text-cream/68 sm:mt-7 sm:text-lg">
+              <p className="rise rise-2 mt-5 max-w-lg text-base leading-relaxed text-pretty text-ink/62 sm:mt-6 sm:text-lg">
                 {t.hero.body}
               </p>
-              <div className="rise rise-2 mt-7 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="rise rise-3 mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center">
                 <a
                   href={mail}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cream px-6 text-sm font-semibold text-ink transition hover:bg-white"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-sm font-semibold text-cream shadow-[0_14px_30px_-16px_rgb(10_20_16/0.55)] transition hover:bg-forest"
                 >
                   {t.hero.primary}
-                  <ArrowUpRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
-                  href="#ne-yapiyoruz"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-cream/18 px-6 text-sm font-semibold text-cream/90 transition hover:border-cream/40 hover:bg-white/5"
+                  href="#urun"
+                  className="inline-flex h-12 items-center justify-center rounded-full border border-ink/12 bg-white/70 px-6 text-sm font-semibold text-ink/80 transition hover:border-ink/25 hover:bg-white"
                 >
                   {t.hero.secondary}
                 </a>
               </div>
-              <p className="rise rise-3 mt-8 text-sm tracking-[0.14em] text-cream/45 sm:mt-14">
-                {t.examsRibbon}
-              </p>
+              <div className="rise rise-4 mt-10 flex max-w-md items-stretch border-t border-ink/8 pt-6">
+                <div className="pr-6">
+                  <p className="font-serif text-[2rem] leading-none tracking-tight">{t.hero.proofA}</p>
+                  <p className="mt-2 text-[11px] font-semibold tracking-[0.14em] text-ink/45 uppercase">
+                    {t.hero.proofANote}
+                  </p>
+                </div>
+                <div className="border-l border-ink/8 pl-6">
+                  <p className="font-serif text-[1.35rem] leading-none tracking-tight sm:text-[2rem]">
+                    {t.hero.proofB}
+                  </p>
+                  <p className="mt-2 text-[11px] font-semibold tracking-[0.14em] text-ink/45 uppercase">
+                    {t.hero.proofBNote}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="rise rise-2 mx-auto w-full max-w-[15.5rem] sm:max-w-[22rem] lg:max-w-[34rem]">
-              <HeroVisual />
+            <div className="rise rise-2 lg:justify-self-end lg:w-full lg:max-w-[30rem]">
+              <HeroVisual name={t.hero.bubbleName} message={t.hero.bubble} />
             </div>
           </div>
         </section>
+
+        <JourneyCards locale={locale} />
 
         <section className="gutter bg-cream pt-14 pb-16 sm:pt-20 sm:pb-24" id="ne-yapiyoruz">
           <div className="mx-auto max-w-6xl">
@@ -71,37 +90,6 @@ export function HomePage({ locale }: { locale: Locale }) {
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-pretty text-ink/62">
                     {item.body}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="gutter relative overflow-hidden bg-ink-soft py-14 text-cream sm:py-24" id="urun">
-          <div className="grain" />
-          <div className="relative mx-auto max-w-6xl">
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-gold uppercase">
-              {t.how.eyebrow}
-            </p>
-            <h2 className="mt-3 max-w-3xl font-serif text-[clamp(1.85rem,6.8vw,3.25rem)] tracking-tight text-balance">
-              {t.how.title}
-            </h2>
-            <div className="relative mt-10 grid gap-8 sm:mt-16 md:grid-cols-3 md:gap-10">
-              <div
-                aria-hidden
-                className="absolute top-[1.15rem] right-8 left-8 hidden h-px bg-gradient-to-r from-gold/10 via-gold/50 to-gold/10 md:block"
-              />
-              {t.how.steps.map((step) => (
-                <article key={step.n} className="relative min-w-0">
-                  <span className="relative z-10 grid h-9 w-9 place-items-center rounded-full border border-gold/40 bg-ink-soft font-serif text-sm text-gold">
-                    {step.n}
-                  </span>
-                  <h3 className="mt-5 font-serif text-[1.4rem] leading-tight sm:mt-6 sm:text-[1.75rem]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-pretty text-cream/64">
-                    {step.body}
                   </p>
                 </article>
               ))}
