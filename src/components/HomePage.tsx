@@ -17,8 +17,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         <section className="hero-light relative overflow-x-clip">
           <div className="gutter relative mx-auto grid w-full max-w-6xl items-center gap-10 py-10 sm:gap-12 sm:py-16 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[1.12fr_0.88fr] lg:gap-10 lg:py-16">
             <div className="min-w-0">
-              <p className="rise inline-flex items-center gap-2 rounded-full bg-ink/5 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-ink/50 uppercase">
-                <span className="h-1.5 w-1.5 rounded-full bg-olive" />
+              <p className="rise text-[11px] font-semibold tracking-[0.2em] text-olive-deep uppercase">
                 {t.hero.badge}
               </p>
               <h1 className="rise rise-1 mt-5 max-w-3xl font-serif text-[clamp(2.15rem,8.4vw,4.55rem)] leading-[1.08] tracking-tight text-balance">
@@ -32,7 +31,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               <div className="rise rise-3 mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center">
                 <a
                   href={mail}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-sm font-semibold text-cream shadow-[0_14px_30px_-16px_rgb(10_20_16/0.55)] transition hover:bg-forest"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-sm font-semibold text-cream transition hover:bg-forest"
                 >
                   {t.hero.primary}
                   <ArrowRight className="h-4 w-4" />
@@ -69,7 +68,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
         <JourneyCards locale={locale} />
 
-        <section className="gutter bg-cream pt-14 pb-16 sm:pt-20 sm:pb-24" id="ne-yapiyoruz">
+        <section className="gutter bg-cream pt-16 pb-20 sm:pt-24 sm:pb-28" id="ne-yapiyoruz">
           <div className="mx-auto max-w-6xl">
             <p className="text-[11px] font-semibold tracking-[0.2em] text-olive-deep uppercase">
               {t.what.eyebrow}
@@ -77,27 +76,21 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h2 className="mt-3 max-w-3xl font-serif text-[clamp(1.85rem,6.8vw,3.25rem)] tracking-tight text-balance">
               {t.what.title}
             </h2>
-            <div className="mt-8 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+            <ol className="mt-10 sm:mt-14">
               {t.what.items.map((item, i) => (
-                <article
-                  key={item.title}
-                  className="flex h-full min-w-0 flex-col rounded-[1.25rem] border border-ink/7 bg-paper p-5 sm:rounded-[1.6rem] sm:p-6"
-                >
-                  <div className="h-px w-10 shrink-0 rule-gold" />
-                  <p className="mt-5 font-serif text-3xl text-gold">{`0${i + 1}`}</p>
-                  <h3 className="mt-4 font-serif text-[1.35rem] leading-tight sm:text-[1.65rem]">
+                <li key={item.title} className="journal-row">
+                  <p className="font-serif text-lg text-gold">{`0${i + 1}`}</p>
+                  <h3 className="font-serif text-[1.45rem] leading-tight sm:text-[1.7rem]">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-pretty text-ink/62">
-                    {item.body}
-                  </p>
-                </article>
+                  <p className="text-sm leading-relaxed text-pretty text-ink/62">{item.body}</p>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </section>
 
-        <section className="gutter bg-paper py-14 sm:py-24" id="sistem">
+        <section className="gutter bg-paper py-16 sm:py-28" id="sistem">
           <div className="mx-auto max-w-6xl">
             <p className="text-[11px] font-semibold tracking-[0.2em] text-olive-deep uppercase">
               {t.features.eyebrow}
@@ -105,21 +98,17 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h2 className="mt-3 max-w-3xl font-serif text-[clamp(1.85rem,6.8vw,3.25rem)] tracking-tight text-balance">
               {t.features.title}
             </h2>
-            <div className="mt-8 grid gap-3 sm:mt-14 sm:grid-cols-3 sm:gap-4">
-              {t.features.items.map((item) => (
-                <article
-                  key={item.title}
-                  className="flex h-full min-w-0 flex-col rounded-[1.35rem] bg-cream p-5 sm:rounded-[1.7rem] sm:p-7"
-                >
-                  <h3 className="font-serif text-[1.4rem] leading-tight sm:text-[1.7rem]">
+            <ol className="mt-10 sm:mt-14">
+              {t.features.items.map((item, i) => (
+                <li key={item.title} className="journal-row">
+                  <p className="font-serif text-lg text-gold">{`0${i + 1}`}</p>
+                  <h3 className="font-serif text-[1.45rem] leading-tight sm:text-[1.7rem]">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-pretty text-ink/62">
-                    {item.body}
-                  </p>
-                </article>
+                  <p className="text-sm leading-relaxed text-pretty text-ink/62">{item.body}</p>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </section>
 
