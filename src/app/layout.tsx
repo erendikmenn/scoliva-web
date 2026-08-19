@@ -74,6 +74,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="flex min-h-full flex-1 flex-col">
           {children}
         </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: site.name,
+              url: site.url,
+              email: site.email,
+              sameAs: [site.linkedin],
+            }),
+          }}
+        />
       </body>
     </html>
   );
